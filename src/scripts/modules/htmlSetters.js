@@ -75,7 +75,7 @@ async function showEvents(events) {
     itensEventos = "Usuário sem eventos";
   }
 
-  const eventos = `<div class="repositories">
+  const eventos = `<div class="events">
                       <h2>Eventos</h2>
                       <ul>${itensEventos}</ul>
                    </div>`;

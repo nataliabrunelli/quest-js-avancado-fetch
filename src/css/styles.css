@@ -131,7 +131,7 @@ main {
   justify-content: center;
 }
 
-.container .profile-data .repositories li span {
+.container .profile-data .events li span {
   font-weight: bold;
 }
 
