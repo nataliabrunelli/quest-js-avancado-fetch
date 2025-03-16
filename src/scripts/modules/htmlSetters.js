@@ -1,10 +1,7 @@
-import { getFollowers, getFollowing, getRepositories, getEvents} from "./services.js";
+import { getRepositories, getEvents} from "./services.js";
 import { infosContainer } from "./variables.js";
 
 async function showUser(profile) {
-  const followers = await getFollowers(profile);
-  const following = await getFollowing(profile);
-
   const user = `<div class="info">
                   <img src="${profile.avatar_url}">
                   <div class="data">
@@ -12,8 +9,8 @@ async function showUser(profile) {
                     <p>${
                       profile.bio ?? "O usuário não possui bio cadastrada."
                     }</p>
-                    <p>Seguidores: ${followers.length ?? followers.length}</p>
-                    <p>Seguindo: ${following.length ?? following.length}</p>
+                    <p>Seguidores: ${profile.followers}</p>
+                    <p>Seguindo: ${profile.following}</p>
                   </div>
                 </div>`;
   return user;
@@ -38,10 +35,11 @@ async function showRepositories(repositories) {
                                     <p>👀 ${repositorio.watchers_count}</p>
                                   </div>     
                                   <div class = "detail">
-                                    <p>📖 ${repositorio.language}</p>
+                                    <p>📖 ${repositorio.language ?? "não especificada"}</p>
                                   </div>   
                                 </div>                   
-                              </a><li>`;
+                              </a>
+                            <li>`;
       }
     });
   } else {
@@ -66,7 +64,7 @@ async function showEvents(events) {
           const mensagens = evento.payload.commits.map(
             (commit) => commit.message
           );
-          mensagemCommit = mensagens.join(", "); // Junta as mensagens com vírgula
+          mensagemCommit = mensagens.join(", "); 
         } else if (evento.type === "CreateEvent") {
           mensagemCommit = "Sem mensagem de commit.";
         }
